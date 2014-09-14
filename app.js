@@ -9,6 +9,10 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var weeks = require('./routes/weeks');
 
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/pnpdb');
+
 var app = express();
 
 // view engine setup
