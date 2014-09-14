@@ -3,9 +3,9 @@ var Week = require('../models/week').Week;
 exports.index = function(req, res) {
   Week.find({}, function(err, docs) {
     if(!err) {
-      res.json(200, { weeks: docs });
+      res.status(200).json({ weeks: docs });
     } else {
-      res.json(500, { message: err });
+      res.status(500).json({ message: err });
     }
   });
 }
@@ -27,9 +27,9 @@ exports.create = function(req, res) {
       newWeek.save(function(err) {
       
         if(!err) {
-          res.json(201, {message: "Week created with name: " + newWeek.name });
+          res.status(201).json({ message: "Week created with name: " + newWeek.name });
         } else {
-          res.json(500, {message: "Could not create week. Error: " + err});
+          res.status(500).json({ message: "Could not create week. Error: " + err });
         }
       
       });
@@ -38,10 +38,10 @@ exports.create = function(req, res) {
       
       // User is trying to create a workout with a name that
       // already exists.
-      res.json(403, {message: "Week with that name already exists, please update instead of create or create a new week with a different name."});
+      res.status(403).json({ message: "Week with that name already exists, please update instead of create or create a new week with a different name." });
       
     } else {
-      res.json(500, { message: err});
+      res.status(500).json({ message: err});
     }
   });
       
@@ -52,11 +52,11 @@ exports.show = function(req, res) {
   var id = req.params.id; // The id of the week the user wants to look up.
   Week.findById(id, function(err, doc) {
     if(!err && doc) {
-      res.json(200, doc);
+      res.status(200).json(doc);
     } else if(err) {
-      res.json(500, { message: "Error loading week." + err});
+      res.status(500).json({ message: "Error loading week." + err });
     } else {
-      res.json(404, { message: "Week not found."});
+      res.status(404).json({ message: "Week not found." });
     }
   });
 }
