@@ -46,3 +46,17 @@ exports.create = function(req, res) {
   });
       
 }
+
+exports.show = function(req, res) {
+  
+  var id = req.params.id; // The id of the week the user wants to look up.
+  Week.findById(id, function(err, doc) {
+    if(!err && doc) {
+      res.json(200, doc);
+    } else if(err) {
+      res.json(500, { message: "Error loading week." + err});
+    } else {
+      res.json(404, { message: "Week not found."});
+    }
+  });
+}
