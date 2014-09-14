@@ -9,3 +9,40 @@ exports.index = function(req, res) {
     }
   });
 }
+
+exports.create = function(req, res) {
+      
+  var week_name = req.body.week_name; // Name of week.
+  var description = req.body.week_description; // Description of the week
+      
+  Week.findOne({ name: { $regex: new RegExp(week_name, "i") } },
+  function(err, doc) { // Using RegEx - search is case insensitive
+    if(!err && !doc) {
+      
+      var newWeek= new Week();
+      
+      newWeek.name = week_name;
+      newWeek.description = description;
+      
+      newWeek.save(function(err) {
+      
+        if(!err) {
+          res.json(201, {message: "Week created with name: " + newWeek.name });
+        } else {
+          res.json(500, {message: "Could not create week. Error: " + err});
+        }
+      
+      });
+      
+    } else if(!err) {
+      
+      // User is trying to create a workout with a name that
+      // already exists.
+      res.json(403, {message: "Week with that name already exists, please update instead of create or create a new week with a different name."});
+      
+    } else {
+      res.json(500, { message: err});
+    }
+  });
+      
+}
