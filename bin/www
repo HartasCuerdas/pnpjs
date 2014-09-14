@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('pnp');
+var debug = require('debug')('pnpjs');
 var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);
