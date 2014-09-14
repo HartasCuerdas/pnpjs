@@ -9,7 +9,7 @@ index: { unique: true } }
 }
 });
       
-var week = mongoose.model('week', workoutSchema);
+var week = mongoose.model('week', weekSchema);
       
 module.exports = {
   Week: week
