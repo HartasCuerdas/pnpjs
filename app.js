@@ -33,6 +33,7 @@ app.use('/users', users);
 app.get('/weeks', weeks.index);
 app.post('/weeks', weeks.create);
 app.get('/weeks/:id', weeks.show);
+app.delete('/weeks', weeks.delete);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

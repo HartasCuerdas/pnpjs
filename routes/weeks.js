@@ -60,3 +60,18 @@ exports.show = function(req, res) {
     }
   });
 }
+
+exports.delete = function(req, res) {
+      
+  var id = req.body.id;
+  Week.findById(id, function(err, doc) {
+    if(!err && doc) {
+      doc.remove();
+      res.status(200).json({ message: "Week removed." });
+    } else if(!err) {
+      res.status(404).json({ message: "Could not find week." });
+    } else {
+      res.status(403).json({ message: "Could not delete week. " + err });
+    }
+  });
+}
