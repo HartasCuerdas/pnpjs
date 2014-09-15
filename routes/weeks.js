@@ -75,3 +75,28 @@ exports.delete = function(req, res) {
     }
   });
 }
+
+exports.update = function(req, res) {
+  
+  var id = req.body.id;
+  var week_name = req.body.week_name;
+  var week_description = req.body.week_description;
+      
+  Week.findById(id, function(err, doc) {
+      if(!err && doc) {
+        doc.name = week_name;
+        doc.description = week_description;
+        doc.save(function(err) {
+          if(!err) {
+            res.status(200).json({ message: "Week updated: " + week_name });
+          } else {
+            res.status(500).json({ message: "Could not update week. " + err });
+          }
+        });
+      } else if(!err) {
+        res.status(404).json({ message: "Could not find week." });
+      } else {
+        res.status(500).json({ message: "Could not update week. " + err });
+      }
+    });
+}
